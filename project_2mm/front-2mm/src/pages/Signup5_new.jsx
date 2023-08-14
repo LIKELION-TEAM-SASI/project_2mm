@@ -81,7 +81,6 @@ const Signup5_new = () => {
 
     const fetchData = async () => {
       try {
-        // API 호출
         const response = await axios.get(
           `http://127.0.0.1:8000/group/${code}/`
         );
@@ -90,8 +89,8 @@ const Signup5_new = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData(); // fetchData 함수 호출 (데이터를 서버에서 가져옴)
-  }, []); // invitecode가 변경될 때마다 데이터를 다시 불러오도록
+    fetchData();
+  }, []);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -116,7 +115,7 @@ const Signup5_new = () => {
         />
         <ImageUpload>
           {group && group.profile ? (
-            <img src={group.profile} alt="ImageUpload" />
+            <img src={group.profile} alt="GroupProfile" /> // Display the group profile image
           ) : null}
         </ImageUpload>
         {group ? <GroupName>{group.name}</GroupName> : null}
