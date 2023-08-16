@@ -1,31 +1,25 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+
 from rest_framework import views
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,viewsets
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import  IsAuthenticated
-from .models import Post,Comment, Plan, Group
-from .serializers import PostSerializer,CommentSerializer, GroupPlanSerializer
 from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from . import models
 from . import serializers
-from rest_framework.views import APIView
 
 
 # 특정 그룹 게시글 작성 
 class PostViewSet(viewsets.ModelViewSet):
     #post_list
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializer
 
     def post(self, request, code):
         data = request.data
         data['group_code'] = code  # 그룹 코드를 요청 데이터에 추가
 
-        serializer = PostSerializer(data=data)
+        serializer = serializers.PostSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             print('게시글저장')
@@ -42,35 +36,26 @@ class PostViewSet(viewsets.ModelViewSet):
             headers = self.get_success_headers(serializer.data) #성공시 헤더로 전달할 값들을 headers에 담기
             return Response(serializer.data,headers=headers)
         else:
-            print("이거 뜨면 세션값 못 받고 있는거임 수정해야함.ㅜㅜ")
             return Response(serializer.data,{'error'}, status=status.HTTP_401_UNAUTHORIZED)
-    #post_delete (권한 삭제 추가 필요)
 
 # 그룹별 게시글 목록 
 class GroupPostView(views.APIView):
     def get(self, request, group_code):
         try:
             group = models.Group.objects.get(code=group_code)
-            posts = Post.objects.filter(group_code=group).order_by('-created_at')
+            posts = models.Post.objects.filter(group_code=group).order_by('-created_at')
             serializer = serializers.GroupPostSerializer(posts, many=True)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except Post.DoesNotExist:
+        except models.Post.DoesNotExist:
             return Response({'error': '게시글x'}, status=status.HTTP_404_NOT_FOUND)
-        # try:
-        #     group = models.Group.objects.get(code=group_code)
-        #     posts = Post.objects.filter(group_code=group)
-        #     serializer = serializers.GroupPostSerializer(posts, many=True)
-        #     return Response(serializer.data)
-        # except models.Group.DoesNotExist:
-        #     return Response({'error': '그룹 x'},status=status.HTTP_404_NOT_FOUND)
-    
+
     def post(self, request, group_code, *args, **kwargs):
         if request.user.is_authenticated:
             serializer = serializers.GroupPostSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
-            user = request.user  # 로그인한 사용자 가져오기
+            user = request.user 
 
             group = get_object_or_404(models.Group, code=group_code)
             post = serializer.save(writer=request.user, group_code=group)  # group_code에 해당 그룹 할당
@@ -83,15 +68,15 @@ class GroupPostView(views.APIView):
 class GroupPostDetailView(views.APIView):
     def get(self, request, code, post_id):
         try:
-            post = Post.objects.get(group_code__code=code, id=post_id)
+            post = models.Post.objects.get(group_code__code=code, id=post_id)
             serializer = serializers.GroupPostSerializer(post)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except Post.DoesNotExist:
+        except models.Post.DoesNotExist:
             return Response({'error': '게시글x'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, code, post_id):
         user = request.user 
-        post = get_object_or_404(Post, id=post_id)
+        post = get_object_or_404(models.Post, id=post_id)
 
         userinfo = user.userinfo
         if post in userinfo.like_posts.all():
@@ -110,8 +95,8 @@ class GroupPostDetailView(views.APIView):
 
     def patch(self, request, code, post_id):
         try:
-            post = Post.objects.get(group_code__code=code, id=post_id)
-        except Post.DoesNotExist:
+            post = models.Post.objects.get(group_code__code=code, id=post_id)
+        except models.Post.DoesNotExist:
             return Response({'error': '게시글이 없음'}, status=status.HTTP_404_NOT_FOUND)
 
         if request.user != post.writer:
@@ -126,8 +111,8 @@ class GroupPostDetailView(views.APIView):
 
     def delete(self, request, code, post_id):
         try:
-            post = Post.objects.get(group_code__code=code, id=post_id)
-        except Post.DoesNotExist:
+            post = models.Post.objects.get(group_code__code=code, id=post_id)
+        except models.Post.DoesNotExist:
             return Response({'error': '게시글이 없음'}, status=status.HTTP_404_NOT_FOUND)
 
         if request.user != post.writer:
@@ -139,17 +124,14 @@ class GroupPostDetailView(views.APIView):
 
 #댓글
 class CommentView(views.APIView):
-
     def get(self, request, group_code, post_id):
-        comments = Comment.objects.filter(post_id=post_id)
-        serializer = CommentSerializer(comments, many=True)
+        comments = models.Comment.objects.filter(post_id=post_id)
+        serializer = serializers.CommentSerializer(comments, many=True)
         return Response(serializer.data)
-    
-    # ... other methods ...
 
     def post(self, request, group_code, post_id):
         if request.user.is_authenticated:
-            serializer = CommentSerializer(data=request.data)
+            serializer = serializers.CommentSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(writer=request.user, post_id=post_id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -160,9 +142,9 @@ class CommentView(views.APIView):
     
     # 댓글 수정 
     def patch(self, request, group_code, post_id, comment_id):
-        comment = Comment.objects.get(id=comment_id, post_id=post_id)
+        comment = models.Comment.objects.get(id=comment_id, post_id=post_id)
         if request.user == comment.writer:
-            serializer = CommentSerializer(comment, data=request.data)
+            serializer = serializers.CommentSerializer(comment, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
@@ -172,7 +154,7 @@ class CommentView(views.APIView):
         
     #댓글 삭제
     def delete(self, request, group_code, post_id, comment_id):    
-        comment = Comment.objects.get(id=comment_id, post_id=post_id)
+        comment = models.Comment.objects.get(id=comment_id, post_id=post_id)
         if request.user == comment.writer:
             comment.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -185,7 +167,7 @@ class AlbumViewSet(views.APIView):
     def get(self, request, group_code):
         try:
             group = models.Group.objects.get(code=group_code)
-            posts = Post.objects.filter(group_code=group)
+            posts = models.Post.objects.filter(group_code=group)
             serializer = serializers.AlbumSerializer(posts, many=True)
             return Response(serializer.data)
         except models.Group.DoesNotExist:
