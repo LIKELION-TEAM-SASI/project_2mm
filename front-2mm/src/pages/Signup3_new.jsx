@@ -90,7 +90,7 @@ const Signup3_new = () => {
 
       console.log("Data:", response.data);
 
-      navigate("/Signup4_new");
+      navigate("/Signup3_new2");
     } catch (error) {
       console.error("Error creating new post:", error);
     }

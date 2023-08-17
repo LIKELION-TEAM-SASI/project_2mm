@@ -31,6 +31,7 @@ import Date_Write from "./pages/Date_Write";
 import AlbumDetail from "./pages/AlbumDetail";
 import Post4 from "./pages/Post4";
 import AddFamily from "./pages/AddFamily";
+import Signup3_new2 from "./pages/Signup3_new2";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
           <Route path="/Signup1_new" element={<Signup1_new />} />{" "}
           <Route path="/Signup2_new" element={<Signup2_new />} />{" "}
           <Route path="/Signup3_new" element={<Signup3_new />} />{" "}
+          <Route path="/Signup3_new2" element={<Signup3_new2 />} />{" "}
           <Route path="/Signup4_new" element={<Signup4_new />} />{" "}
           <Route path="/Signup5_new" element={<Signup5_new />} />{" "}
           <Route path="/Date_List" element={<Date_List />} />{" "}
