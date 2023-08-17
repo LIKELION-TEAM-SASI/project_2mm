@@ -82,7 +82,7 @@ const Membership3 = () => {
 
       console.log("Data:", response.data);
 
-      navigate("/Login");
+      navigate("/");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
