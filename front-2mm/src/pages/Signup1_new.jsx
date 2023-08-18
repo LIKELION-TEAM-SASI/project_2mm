@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -67,7 +69,7 @@ const Signup1_new = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/group/",
+        `${BACKEND_URL}/group/`,
         { name: name },
         {
           headers: {
@@ -96,10 +98,10 @@ const Signup1_new = () => {
   return (
     <Container>
       <Back>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_groupname.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_groupname.svg`} />
       </SubTitle>
       <InputGroupname
         placeholder="예)화목한 우리 가족"
@@ -108,7 +110,7 @@ const Signup1_new = () => {
       />
       <NextBtn onClick={onSubmit}>
         {" "}
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} />
       </NextBtn>
     </Container>
   );

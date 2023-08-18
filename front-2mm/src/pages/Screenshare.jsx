@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -108,27 +110,27 @@ const Screenshare = () => {
   return (
     <Container>
       <Back onClick={gotoBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <BoxZone>
         <Title>
-          <img src={`${process.env.PUBLIC_URL}/images/scrtitle.svg`} />
+          <img src={`${BACKEND_URL}/images/scrtitle.svg`} />
         </Title>
         <SubTitle>
-          <img src={`${process.env.PUBLIC_URL}/images/explainscr.svg`} />
+          <img src={`${BACKEND_URL}/images/explainscr.svg`} />
         </SubTitle>
         {/* url 받아오기!!!! get으로... */}
         <CopyBox ref={copyBoxRef}>
           https://us2mmweb/j/87528929085?pwd=yGaa9wUnpHu4Q8GIGlGRal8mYf7rkc.1
         </CopyBox>
         <CopyBtn onClick={handleCopyClick}>
-          <img src={`${process.env.PUBLIC_URL}/images/copybtn.svg`} />
+          <img src={`${BACKEND_URL}/images/copybtn.svg`} />
         </CopyBtn>
         {/* 복사 상태에 따라 텍스트를 표시하는 요소 */}
         <CopyAlert>{copied ? "주소가 복사되었습니다" : " "} </CopyAlert>
       </BoxZone>
       <NextBtn onClick={gotoProgress}>
-        <img src={`${process.env.PUBLIC_URL}/images/sharestartbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/sharestartbtn.svg`} />
       </NextBtn>
     </Container>
   );

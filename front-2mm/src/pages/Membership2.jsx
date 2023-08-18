@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -70,7 +72,7 @@ const Membership2 = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.patch(
-        "http://127.0.0.1:8000/signup/",
+        `${BACKEND_URL}/signup/`,
         { phone: phone },
         {
           headers: {
@@ -95,16 +97,10 @@ const Membership2 = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/title_text.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/title_text.svg`} alt="title" />
       </Title>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/phone_text.svg`}
-          alt="subtitle"
-        />
+        <img src={`${BACKEND_URL}/images/phone_text.svg`} alt="subtitle" />
       </SubTitle>
       <InputPhone
         placeholder="+8210 뒤에 8자리 숫자 입력해주세요."
@@ -112,7 +108,7 @@ const Membership2 = () => {
         onChange={handlePhoneChange}
       />
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/next_btn.svg`} alt="btn" />
+        <img src={`${BACKEND_URL}/images/next_btn.svg`} alt="btn" />
       </NextBtn>
     </Container>
   );

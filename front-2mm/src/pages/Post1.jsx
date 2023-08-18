@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ModalBasic_post from "./ModalBasic_post";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -140,7 +142,7 @@ const Post1 = () => {
         const code = localStorage.getItem("code");
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/posts/`,
+          `${BACKEND_URL}/group/${code}/posts/`,
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -208,14 +210,14 @@ const Post1 = () => {
   return (
     <Container>
       <Back onClick={onClickBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/back_btn.svg`} alt="back" />
+        <img src={`${BACKEND_URL}/images/back_btn.svg`} alt="back" />
       </Back>
       <ScrollBox>
         {posts.map((post) => (
           <PostBox key={post.id}>
             <Profile>
               <img
-                src={`http://127.0.0.1:8000${post.writerProfile}`}
+                src={`${BACKEND_URL}${post.writerProfile}`}
                 alt="PostImg"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -225,10 +227,7 @@ const Post1 = () => {
             <More onClick={() => onUpdateButtonClick(post.id)}>
               {" "}
               {/* 수정 버튼 */}
-              <img
-                src={`${process.env.PUBLIC_URL}/images/more.svg`}
-                alt="more"
-              />
+              <img src={`${BACKEND_URL}/images/more.svg`} alt="more" />
             </More>
             {modalOpen && (
               <ModalBasic_post
@@ -241,30 +240,24 @@ const Post1 = () => {
             <PostDetail>{post.content}</PostDetail> {/* 내용 표시 */}
             <PostImg>
               <img
-                src={`http://127.0.0.1:8000${post.image}`}
+                src={`${BACKEND_URL}${post.image}`}
                 alt="PostImg"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </PostImg>
             <Heart onClick={() => onClickHeart(post.id)}>
               <img
-                src={`${process.env.PUBLIC_URL}/images/${
+                src={`${BACKEND_URL}/images/${
                   post.isLiked ? "heart.svg" : "empty_heart.svg"
                 }`}
                 alt={post.isLiked ? "heart" : "empty_heart"}
               />
             </Heart>
             <Comment onClick={() => onClickComment(post.id)}>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/comment.svg`}
-                alt="comment"
-              />
+              <img src={`${BACKEND_URL}/images/comment.svg`} alt="comment" />
             </Comment>
             <DivisionBar>
-              <img
-                src={`${process.env.PUBLIC_URL}/images/division.svg`}
-                alt="comment"
-              />
+              <img src={`${BACKEND_URL}/images/division.svg`} alt="comment" />
             </DivisionBar>
           </PostBox>
         ))}

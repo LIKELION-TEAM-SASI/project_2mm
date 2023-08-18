@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 // 변경사항 수정되나?
 //abcde;
@@ -157,9 +159,7 @@ const Signup2_old = () => {
     const fetchData = async () => {
       setPostLoading(true);
       try {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${invitecode}/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${invitecode}/`);
         setGroup(response.data);
         setUsers(response.data.user); // users배열에 저장 추가
       } catch (error) {
@@ -181,7 +181,7 @@ const Signup2_old = () => {
     const headers = { Authorization: `Token ${token}` };
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/group/${invitecode}/`,
+        `${BACKEND_URL}/group/${invitecode}/`,
         { code: invitecode },
         { headers }
       );
@@ -197,25 +197,19 @@ const Signup2_old = () => {
   return (
     <Container>
       <Back onClick={handleBackClick}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} alt="Back" />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} alt="Back" />
       </Back>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/subtitle_ask.svg`}
-          alt="Subtitle"
-        />
+        <img src={`${BACKEND_URL}/images/subtitle_ask.svg`} alt="Subtitle" />
       </SubTitle>
       <WhiteBox>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/whitebox2.svg`}
-          alt="WhiteBox"
-        />
+        <img src={`${BACKEND_URL}/images/whitebox2.svg`} alt="WhiteBox" />
         {/* 여기에 모임 이미지 떠야 함 */}
         <ImageUpload>
           {group && group.profile && (
             <img
               style={{ width: "300px", height: "242px" }}
-              src={`http://127.0.0.1:8000${group.profile}`}
+              src={`${BACKEND_URL}${group.profile}`}
             />
           )}
         </ImageUpload>
@@ -228,7 +222,7 @@ const Signup2_old = () => {
               <ProfileImg>
                 <img
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  src={`http://127.0.0.1:8000${userObj.profile}`}
+                  src={`${BACKEND_URL}${userObj.profile}`}
                 />
               </ProfileImg>
               <NameText>{userObj.username}</NameText>
@@ -237,7 +231,7 @@ const Signup2_old = () => {
         </BoxZone>
       </WhiteBox>
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} alt="Next" />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} alt="Next" />
       </NextBtn>
     </Container>
   );

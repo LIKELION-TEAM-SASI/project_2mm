@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -78,7 +80,7 @@ const Signup3_new = () => {
       }
 
       const response = await axios.patch(
-        `http://127.0.0.1:8000/group/${code}/`, // Use the correct URL with the code parameter
+        `${BACKEND_URL}/group/${code}/`, // Use the correct URL with the code parameter
         formData,
         {
           headers: {
@@ -104,10 +106,7 @@ const Signup3_new = () => {
     <Container>
       <Back>&nbsp;</Back>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/subtitle_detail.svg`}
-          alt="SubTitle"
-        />
+        <img src={`${BACKEND_URL}/images/subtitle_detail.svg`} alt="SubTitle" />
       </SubTitle>
       <InputDetail
         placeholder="예)가족에 대한 간단한 설명"
@@ -115,7 +114,7 @@ const Signup3_new = () => {
         onChange={handleInfoChange}
       />
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} alt="Next" />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} alt="Next" />
       </NextBtn>
     </Container>
   );

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Box = styled.div`
   position: relative;
@@ -16,7 +18,7 @@ const SettingBtn = styled.button`
   left: 300px;
   width: 30px;
   height: 30px;
-  background: url("${process.env.PUBLIC_URL}/images/settingbtn.svg");
+  background: url("${BACKEND_URL}/images/settingbtn.svg");
   background-size: cover;
   border: none;
 `;
@@ -67,9 +69,7 @@ const GroupItem = ({ code }) => {
       setPostLoading(true);
       try {
         // API 호출
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${code}/`);
         setGroup(response.data);
         setUsers(response.data.user); // users배열에 저장 추가
       } catch (error) {
@@ -99,7 +99,7 @@ const GroupItem = ({ code }) => {
               borderRadius: "17.76px",
               filter: "brightness(60%)",
             }}
-            src={`http://127.0.0.1:8000${group.profile}`}
+            src={`${BACKEND_URL}${group.profile}`}
           />
         </Box>
       )}

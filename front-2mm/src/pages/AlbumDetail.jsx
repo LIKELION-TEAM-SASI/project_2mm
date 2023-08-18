@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -16,8 +18,8 @@ const Container = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
   }
 `;
 
@@ -73,7 +75,7 @@ const AlbumDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/group/${code}/album/${postID}/`)
+      .get(`${BACKEND_URL}/group/${code}/album/${postID}/`)
       .then((response) => {
         setPost(response.data);
         console.log(response.data);
@@ -83,7 +85,7 @@ const AlbumDetail = () => {
   // 다운로드
   const onSubmit = () => {
     axios
-      .get(`http://127.0.0.1:8000/group/${code}/album/${postID}/download/`, {
+      .get(`${BACKEND_URL}/group/${code}/album/${postID}/download/`, {
         responseType: "blob", // 응답 데이터 Blob 형식으로 설정(지우지마세요)
       })
       .then((res) => {
@@ -110,23 +112,23 @@ const AlbumDetail = () => {
   return (
     <Container>
       <Back onClick={gotoBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/albumtitle.svg`} />
+        <img src={`${BACKEND_URL}/images/albumtitle.svg`} />
       </Title>
       <BoxZone>
         <Box>
           {post && post.image && (
             <img
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              src={`http://127.0.0.1:8000${post.image}`}
+              src={`${BACKEND_URL}${post.image}`}
             />
           )}
         </Box>
         {/* 다운로드 버튼 누르면 다운로드 정보 post로 넘겨줘야 함 */}
         <DownloadBtn onClick={onSubmit}>
-          <img src={`${process.env.PUBLIC_URL}/images/downbtn.svg`} />
+          <img src={`${BACKEND_URL}/images/downbtn.svg`} />
         </DownloadBtn>
       </BoxZone>
     </Container>

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import GroupItem from "./GroupItem";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -94,7 +96,7 @@ const Home = () => {
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
     try {
-      axios.post(`http://127.0.0.1:8000/api/logout/`, {
+      axios.post(`${BACKEND_URL}/api/logout/`, {
         headers,
       });
       localStorage.removeItem("token");
@@ -115,7 +117,7 @@ const Home = () => {
       setLoading(true);
       try {
         // API 호출
-        const response = await axios.get(`http://127.0.0.1:8000/group/`, {
+        const response = await axios.get(`${BACKEND_URL}/group/`, {
           headers,
         });
         setPostList(response.data); // API 응답으로 받은 데이터를 state에 저장
@@ -136,10 +138,10 @@ const Home = () => {
         <BluePoint>
           <img
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            src={`${process.env.PUBLIC_URL}/images/bluepoint.svg`}
+            src={`${BACKEND_URL}/images/bluepoint.svg`}
           />
           <Mark>
-            <img src={`${process.env.PUBLIC_URL}/images/heartmark.svg`} />
+            <img src={`${BACKEND_URL}/images/heartmark.svg`} />
           </Mark>
           <LogoutBtn onClick={logoutfunc}>로그아웃</LogoutBtn>
         </BluePoint>
@@ -153,7 +155,7 @@ const Home = () => {
         <AddBox onClick={gotoAdd}>
           <img
             style={{ margin: "40px" }}
-            src={`${process.env.PUBLIC_URL}/images/addbox2.svg`}
+            src={`${BACKEND_URL}/images/addbox2.svg`}
           />
         </AddBox>
       </BoxZone>

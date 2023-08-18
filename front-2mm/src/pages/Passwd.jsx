@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -73,7 +75,7 @@ const Passwd = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/login/`, {
+      const response = await axios.post(`${BACKEND_URL}/api/login/`, {
         phone: phnumber,
         password: password,
       });
@@ -81,6 +83,7 @@ const Passwd = () => {
       localStorage.setItem("token", token); // 토큰 저장
       navigate("/Membership4"); // 로그인하면 페이지 이동
     } catch (error) {
+      alert("전화번호와 비밀번호를 다시 확인해주세요.");
       console.error("로그인 실패:", error);
     }
   };
@@ -89,10 +92,10 @@ const Passwd = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/logintitle.svg`} />
+        <img src={`${BACKEND_URL}/images/logintitle.svg`} />
       </Title>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/passwdtitle.svg`} />
+        <img src={`${BACKEND_URL}/images/passwdtitle.svg`} />
       </SubTitle>
       <InputPasswd
         type="password"
@@ -102,7 +105,7 @@ const Passwd = () => {
       ></InputPasswd>
       {/* 로그인 버튼 */}
       <NextBtn onClick={handleLogin}>
-        <img src={`${process.env.PUBLIC_URL}/images/startbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/startbtn.svg`} />
       </NextBtn>
     </Container>
   );

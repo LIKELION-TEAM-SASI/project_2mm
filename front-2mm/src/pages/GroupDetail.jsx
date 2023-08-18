@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -180,9 +182,7 @@ const GroupDetail = () => {
       setPostLoading(true);
       try {
         // API 호출
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${code}/`);
         setGroup(response.data);
         setUsers(response.data.user); // users배열에 저장 추가
         console.log("유저 아이디: " + users);
@@ -206,7 +206,7 @@ const GroupDetail = () => {
       //const code = localStorage.getItem("code"); // 이전 페이지에서 전달된 그룹코드
       // 이전 페이지에서 전달받은 코드를 불러와야 함. 그래야 클릭한 모임이 삭제됨 로컬스토리지에서 불러오지x
       axios
-        .delete(`http://127.0.0.1:8000/group/${code}/`)
+        .delete(`${BACKEND_URL}/group/${code}/`)
         .then((res) => {
           console.log(res);
           setGroup(group.filter((e) => group.code !== e.code)); // texts 배열 업데이트해서 해당 text.id와 일치하지 않는 데이터만 남도록 필터링
@@ -234,7 +234,7 @@ const GroupDetail = () => {
                 borderRadius: "0px 0px 17.76px 17.76px",
                 filter: "brightness(60%)",
               }}
-              src={`http://127.0.0.1:8000${group.profile}`}
+              src={`${BACKEND_URL}${group.profile}`}
             />
           )}
           <GroupTitle>{group && group.name}</GroupTitle>
@@ -247,7 +247,7 @@ const GroupDetail = () => {
             <ProfileImg>
               <img
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                src={`http://127.0.0.1:8000${userObj.profile}`}
+                src={`${BACKEND_URL}${userObj.profile}`}
               />
             </ProfileImg>
             <NameText>{userObj.username}</NameText>
@@ -257,7 +257,7 @@ const GroupDetail = () => {
         <Box onClick={gotoAddMember}>
           <ProfileImg>
             <img
-              src={`${process.env.PUBLIC_URL}/images/addcircle.svg`}
+              src={`${BACKEND_URL}/images/addcircle.svg`}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </ProfileImg>

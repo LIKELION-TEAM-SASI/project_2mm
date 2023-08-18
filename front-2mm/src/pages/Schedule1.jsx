@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { DateText } from "./Schedule1"; // 필요에 따라 import 경로를 조정하세요
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -132,20 +134,17 @@ const Schedule1 = () => {
   return (
     <Container>
       <Back onClick={onClickBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/back_btn.svg`} alt="back" />
+        <img src={`${BACKEND_URL}/images/back_btn.svg`} alt="back" />
       </Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/schedule1_title.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/schedule1_title.svg`} alt="title" />
       </Title>
       <SubTitle>
         버튼을 누르고 <br />몇 월 며칠에 있는 일정인지 말해주세요.
       </SubTitle>
       <VoiceBtn onClick={handleVoiceBtnClick}>
         <img
-          src={`${process.env.PUBLIC_URL}/images/post3_btn.svg`}
+          src={`${BACKEND_URL}/images/post3_btn.svg`}
           alt="post3_btn"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
@@ -156,10 +155,7 @@ const Schedule1 = () => {
       />
       {/* 다음으로 넘어가는 버튼 */}
       <NextBtn onClick={onClickPost}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/schedule1_btn.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/schedule1_btn.svg`} alt="title" />
       </NextBtn>
     </Container>
   );

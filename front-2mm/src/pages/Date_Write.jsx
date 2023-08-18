@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -112,7 +114,7 @@ const Date_Write = () => {
     // 구분
     try {
       const response = axios.post(
-        `http://127.0.0.1:8000/group/${code}/plans/`,
+        `${BACKEND_URL}/group/${code}/plans/`,
         {
           month: recognizedText,
           title: newTitle,
@@ -129,13 +131,13 @@ const Date_Write = () => {
   return (
     <Container>
       <Back onClick={gotoBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/date_plus.svg`} />
+        <img src={`${BACKEND_URL}/images/date_plus.svg`} />
       </Title>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_ask (2).svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_ask (2).svg`} />
       </SubTitle>
       <InputDate
         value={newTitle}
@@ -143,7 +145,7 @@ const Date_Write = () => {
         placeholder="일정제목을 입력하세요"
       />
       <SubTitle2>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_write.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_write.svg`} />
       </SubTitle2>
       <InputDate2
         value={newMemo}
@@ -151,7 +153,7 @@ const Date_Write = () => {
         placeholder="메모를 입력하세요"
       ></InputDate2>
       <NewBtn onClick={onClick}>
-        <img src={`${process.env.PUBLIC_URL}/images/newbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/newbtn.svg`} />
       </NewBtn>
     </Container>
   );

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -85,21 +87,18 @@ const Signup3_new2 = () => {
     try {
       const token = localStorage.getItem("token");
       const code = localStorage.getItem("code");
+      console.log("토큰: " + token);
 
       const formData = new FormData();
       if (selectedImage) {
         formData.append("profile", selectedImage); // 이미지 파일을 FormData에 추가
       }
-      const response = await axios.patch(
-        `http://127.0.0.1:8000/mypage/`,
-        formData,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.patch(`${BACKEND_URL}/mypage/`, formData, {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("Data:", response.data);
 
@@ -126,10 +125,10 @@ const Signup3_new2 = () => {
     <Container>
       <Back>&nbsp;</Back>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_profile.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_profile.svg`} />
       </SubTitle>
       <Detail>
-        <img src={`${process.env.PUBLIC_URL}/images/detail_show.svg`} />
+        <img src={`${BACKEND_URL}/images/detail_show.svg`} />
       </Detail>
       <ImageUpload>
         {/* 선택한 이미지가 있을 경우에만 이미지 보여주기 */}
@@ -140,7 +139,7 @@ const Signup3_new2 = () => {
           />
         ) : (
           <label htmlFor="imageUploadInput">
-            <img src={`${process.env.PUBLIC_URL}/images/image_upload.svg`} />
+            <img src={`${BACKEND_URL}/images/image_upload.svg`} />
           </label>
         )}
         <input
@@ -152,7 +151,7 @@ const Signup3_new2 = () => {
         ></input>
       </ImageUpload>
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} />
       </NextBtn>
     </Container>
   );

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -151,7 +153,7 @@ const ScreenProgress = () => {
   return (
     <Container>
       <Back onClick={() => navigate("/Screenshare")}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <video ref={videoElem} autoPlay width="375px" height="740px"></video>
       <br />

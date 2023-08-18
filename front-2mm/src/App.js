@@ -32,6 +32,7 @@ import AlbumDetail from "./pages/AlbumDetail";
 import Post4 from "./pages/Post4";
 import AddFamily from "./pages/AddFamily";
 import Signup3_new2 from "./pages/Signup3_new2";
+import Passwd2 from "./pages/Passwd2";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/" element={<Splash />} />
           <Route path="/Login" element={<Login />} />{" "}
           <Route path="/Passwd" element={<Passwd />} />{" "}
+          <Route path="/Passwd2" element={<Passwd2 />} />{" "}
           <Route path="/Home" element={<Home />} />{" "}
           <Route path="/GroupDetail" element={<GroupDetail />} />{" "}
           <Route path="/GroupHome" element={<GroupHome />} />{" "}

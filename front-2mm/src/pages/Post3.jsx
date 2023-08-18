@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -218,7 +220,7 @@ const Post3 = () => {
 
       const response = await axios
         .post(
-          `http://127.0.0.1:8000/group/${code}/posts/${postId}/comments/`,
+          `${BACKEND_URL}/group/${code}/posts/${postId}/comments/`,
           {
             post: postId, // 포스트 ID를 포함시킵니다.
             comment: recognizedText, // 댓글 내용을 포함시킵니다.
@@ -253,7 +255,7 @@ const Post3 = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/posts/${postId}/comments/`,
+          `${BACKEND_URL}/group/${code}/posts/${postId}/comments/`,
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -285,13 +287,10 @@ const Post3 = () => {
   return (
     <Container>
       <Back onClick={onClickBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/back_btn.svg`} alt="back" />
+        <img src={`${BACKEND_URL}/images/back_btn.svg`} alt="back" />
       </Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post3_title.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/post3_title.svg`} alt="title" />
       </Title>
       <ScrollBox>
         <CommentBox>
@@ -299,7 +298,7 @@ const Post3 = () => {
             <div key={comment.id}>
               <Profile>
                 <img
-                  src={`http://127.0.0.1:8000${comment.writerProfile}`}
+                  src={`${BACKEND_URL}${comment.writerProfile}`}
                   alt="Profile"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
@@ -314,7 +313,7 @@ const Post3 = () => {
       </ScrollBox>
       <VoiceBtn onClick={handleVoiceBtnClick}>
         <img
-          src={`${process.env.PUBLIC_URL}/images/post3_btn.svg`}
+          src={`${BACKEND_URL}/images/post3_btn.svg`}
           alt="post3_btn"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
@@ -327,7 +326,7 @@ const Post3 = () => {
         />
         <PostBtn onClick={onSubmit}>
           <img
-            src={`${process.env.PUBLIC_URL}/images/comment_btn.svg`}
+            src={`${BACKEND_URL}/images/comment_btn.svg`}
             alt="comment_btn"
           />
         </PostBtn>

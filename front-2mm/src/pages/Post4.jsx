@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -93,7 +95,7 @@ const Post4 = ({ closeModal }) => {
         const code = localStorage.getItem("code");
 
         const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/posts/${postId}/`,
+          `${BACKEND_URL}/group/${code}/posts/${postId}/`,
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -128,7 +130,7 @@ const Post4 = ({ closeModal }) => {
       }
 
       await axios.patch(
-        `http://127.0.0.1:8000/group/${code}/posts/${postId}/`,
+        `${BACKEND_URL}/group/${code}/posts/${postId}/`,
         formData,
         {
           headers: {
@@ -169,26 +171,20 @@ const Post4 = ({ closeModal }) => {
   return (
     <Container>
       <Back onClick={onClickBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/back_btn.svg`} alt="back" />
+        <img src={`${BACKEND_URL}/images/back_btn.svg`} alt="back" />
       </Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_title.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/post2_title.svg`} alt="title" />
       </Title>
       <Subtitle1>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_subtitle.svg`}
-          alt="Subtitle1"
-        />
+        <img src={`${BACKEND_URL}/images/post2_subtitle.svg`} alt="Subtitle1" />
       </Subtitle1>
       <ImgUpload onClick={handleImageClick}>
         {/* 이미지가 있거나 이미지 URL이 비어있지 않은 경우 */}
         {(selectedImage ||
           (postContent.image && postContent.image.url !== "")) && (
           <img
-            src={selectedImage || `http://127.0.0.1:8000${postContent.image}`}
+            src={selectedImage || `${BACKEND_URL}${postContent.image}`}
             alt="Uploaded"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -202,16 +198,13 @@ const Post4 = ({ closeModal }) => {
       />
       <Subtitle2>
         <img
-          src={`${process.env.PUBLIC_URL}/images/post2_subtitle2.svg`}
+          src={`${BACKEND_URL}/images/post2_subtitle2.svg`}
           alt="Subtitle2"
         />
       </Subtitle2>
       <InputText value={postContent.content} onChange={handleInputChange} />
       <NextBtn onClick={onClickNext}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_btn.svg`}
-          alt="NextBtn"
-        />
+        <img src={`${BACKEND_URL}/images/post2_btn.svg`} alt="NextBtn" />
       </NextBtn>
     </Container>
   );

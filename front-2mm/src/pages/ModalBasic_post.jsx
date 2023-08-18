@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import styles from "./ModalBasic_post.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 function ModalBasic({ setModalOpen, postId, groupCode, setPosts }) {
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ function ModalBasic({ setModalOpen, postId, groupCode, setPosts }) {
       console.log(postId);
 
       const response = await axios.delete(
-        `http://127.0.0.1:8000/group/${code}/posts/${postId}/`,
+        `${BACKEND_URL}/group/${code}/posts/${postId}/`,
         {
           headers: {
             Authorization: `Token ${token}`, // Use "Bearer" prefix
@@ -60,19 +62,19 @@ function ModalBasic({ setModalOpen, postId, groupCode, setPosts }) {
     <div className={styles.container}>
       <img
         className={styles.rewrite}
-        src={`${process.env.PUBLIC_URL}/images/rewrite.svg`}
+        src={`${BACKEND_URL}/images/rewrite.svg`}
         alt="rewrite"
         onClick={btnPost4} // Post4 페이지로 이동하는 함수 호출
       />
       <img
         className={styles.delete}
-        src={`${process.env.PUBLIC_URL}/images/delete.svg`}
+        src={`${BACKEND_URL}/images/delete.svg`}
         alt="delete"
         onClick={onDeletePost} // 게시글 삭제 처리 함수 호출
       />
       <img
         className={styles.cancel}
-        src={`${process.env.PUBLIC_URL}/images/cancel.svg`}
+        src={`${BACKEND_URL}/images/cancel.svg`}
         alt="cancel"
         onClick={closeModal} // 모달 닫기
       />

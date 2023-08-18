@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -112,19 +114,19 @@ const Signup4_new = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Detail>
-        <img src={`${process.env.PUBLIC_URL}/images/detail_code.svg`} />
+        <img src={`${BACKEND_URL}/images/detail_code.svg`} />
       </Detail>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_invite2.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_invite2.svg`} />
       </SubTitle>
       <CopyBox ref={copyBoxRef}>{inviteCode}</CopyBox>
       <CopyBtn onClick={handleCopyClick}>
-        <img src={`${process.env.PUBLIC_URL}/images/copybtn.svg`} />
+        <img src={`${BACKEND_URL}/images/copybtn.svg`} />
       </CopyBtn>
       {/* 복사 상태에 따라 텍스트를 표시하는 요소 */}
       <CopyAlert>{copied ? "주소가 복사되었습니다" : " "} </CopyAlert>
       <NextBtn onClick={handleNextClick}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} />
       </NextBtn>
     </Container>
   );

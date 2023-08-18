@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -78,7 +80,7 @@ const Membership = () => {
   const onSubmit = async () => {
     try {
       // HTTP POST 요청으로 새로운 게시물 생성
-      const response = await axios.post("http://127.0.0.1:8000/signup/", {
+      const response = await axios.post(`${BACKEND_URL}/signup/`, {
         username: inputs.username,
       });
 
@@ -98,16 +100,10 @@ const Membership = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/title_text.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/title_text.svg`} alt="title" />
       </Title>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/subtitle_text.svg`}
-          alt="subtitle"
-        />
+        <img src={`${BACKEND_URL}/images/subtitle_text.svg`} alt="subtitle" />
       </SubTitle>
       <InputName
         placeholder="홍길동"
@@ -116,7 +112,7 @@ const Membership = () => {
         onChange={onChange}
       ></InputName>
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/next_btn.svg`} alt="btn" />
+        <img src={`${BACKEND_URL}/images/next_btn.svg`} alt="btn" />
       </NextBtn>
     </Container>
   );

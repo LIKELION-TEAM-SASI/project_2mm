@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -46,16 +48,16 @@ const Date_Plus = () => {
   return (
     <Container>
       <Back>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/date_plus.svg`} />
+        <img src={`${BACKEND_URL}/images/date_plus.svg`} />
       </Title>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/date_select.svg`} />
+        <img src={`${BACKEND_URL}/images/date_select.svg`} />
       </SubTitle>
       <NextBtn>
-        <img src={`${process.env.PUBLIC_URL}/images/newbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/newbtn.svg`} />
       </NextBtn>
     </Container>
   );

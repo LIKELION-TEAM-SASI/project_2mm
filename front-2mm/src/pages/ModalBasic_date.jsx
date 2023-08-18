@@ -4,6 +4,8 @@ import styles from "./ModalBasic_date.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 function ModalBasic({ setModalOpen, planID }) {
   const [plan, setPlan] = useState(null); // plan 상태 선언
@@ -30,7 +32,7 @@ function ModalBasic({ setModalOpen, planID }) {
       const code = localStorage.getItem("code");
       // 이전 페이지에서 전달받은 코드를 불러와야 함. 그래야 클릭한 모임이 삭제됨 로컬스토리지에서 불러오지x
       axios
-        .delete(`http://127.0.0.1:8000/group/${code}/plans/${planID}`, {
+        .delete(`${BACKEND_URL}/group/${code}/plans/${planID}`, {
           headers,
         })
         .then((res) => {
@@ -55,13 +57,13 @@ function ModalBasic({ setModalOpen, planID }) {
       <div className={styles.container} onClick={handleModalClick}>
         <img
           className={styles.delete}
-          src={`${process.env.PUBLIC_URL}/images/delete (3).svg`}
+          src={`${BACKEND_URL}/images/delete (3).svg`}
           alt="delete"
           onClick={deletePlan}
         />
         <img
           className={styles.cancel}
-          src={`${process.env.PUBLIC_URL}/images/cancel (2).svg`}
+          src={`${BACKEND_URL}/images/cancel (2).svg`}
           alt="cancel"
           onClick={closeModal} // 모달 닫기
         />

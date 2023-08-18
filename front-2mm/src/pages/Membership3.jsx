@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -71,7 +73,7 @@ const Membership3 = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.patch(
-        "http://127.0.0.1:8000/update-password/",
+        `${BACKEND_URL}/update-password/`,
         { password: password },
         {
           headers: {
@@ -82,8 +84,9 @@ const Membership3 = () => {
 
       console.log("Data:", response.data);
 
-      navigate("/");
+      navigate("/Passwd2");
     } catch (error) {
+      alert("이미 있는 유저입니다.");
       console.error("Error fetching data:", error);
     }
   };
@@ -96,16 +99,10 @@ const Membership3 = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/title_text.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/title_text.svg`} alt="title" />
       </Title>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/pwd_text.svg`}
-          alt="subtitle"
-        />
+        <img src={`${BACKEND_URL}/images/pwd_text.svg`} alt="subtitle" />
       </SubTitle>
       <InputPasswd
         placeholder="영어,숫자 포함 8자리를 입력하세요."
@@ -113,7 +110,7 @@ const Membership3 = () => {
         onChange={handlePasswdChange}
       />
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/next_btn.svg`} alt="btn" />
+        <img src={`${BACKEND_URL}/images/next_btn.svg`} alt="btn" />
       </NextBtn>
     </Container>
   );

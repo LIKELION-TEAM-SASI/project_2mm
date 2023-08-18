@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -69,10 +71,10 @@ const Login = () => {
     <Container>
       <Back>&nbsp;</Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/logintitle.svg`} />
+        <img src={`${BACKEND_URL}/images/logintitle.svg`} />
       </Title>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/numbertitle.svg`} />
+        <img src={`${BACKEND_URL}/images/numbertitle.svg`} />
       </SubTitle>
       {/* 인풋 박스 */}
       <InputNumber
@@ -82,7 +84,7 @@ const Login = () => {
         onChange={(e) => setPhnumber(e.target.value)}
       ></InputNumber>
       <NextBtn onClick={gotoPasswd}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} />
       </NextBtn>
     </Container>
   );

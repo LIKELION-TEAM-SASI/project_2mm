@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -93,12 +95,10 @@ const Membership4 = () => {
   useEffect(() => {
     const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져옴
     const headers = { Authorization: `Token ${token}` }; // 헤더에 토큰 추가
-    axios
-      .get(`http://127.0.0.1:8000/get-username/`, { headers })
-      .then((response) => {
-        setUser(response.data);
-        console.log(user);
-      });
+    axios.get(`${BACKEND_URL}/get-username/`, { headers }).then((response) => {
+      setUser(response.data);
+      console.log(user);
+    });
   }, []);
 
   return (
@@ -113,8 +113,8 @@ const Membership4 = () => {
         <img
           src={
             isGroupOClicked
-              ? `${process.env.PUBLIC_URL}/images/group_o_b.svg`
-              : `${process.env.PUBLIC_URL}/images/group_o.svg`
+              ? `${BACKEND_URL}/images/group_o_b.svg`
+              : `${BACKEND_URL}/images/group_o.svg`
           }
           alt="group_o"
         />
@@ -123,14 +123,14 @@ const Membership4 = () => {
         <img
           src={
             isGroupXClicked
-              ? `${process.env.PUBLIC_URL}/images/group_x_b.svg`
-              : `${process.env.PUBLIC_URL}/images/group_x.svg`
+              ? `${BACKEND_URL}/images/group_x_b.svg`
+              : `${BACKEND_URL}/images/group_x.svg`
           }
           alt="group_x"
         />
       </Group_X>
       <NextBtn onClick={onClickSign}>
-        <img src={`${process.env.PUBLIC_URL}/images/next_btn.svg`} alt="btn" />
+        <img src={`${BACKEND_URL}/images/next_btn.svg`} alt="btn" />
       </NextBtn>
     </Container>
   );

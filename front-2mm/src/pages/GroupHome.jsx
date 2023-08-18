@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import GroupItem from "./GroupItem";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -67,7 +69,7 @@ const Box = styled.div`
   margin-bottom: 20px;
   width: 340px;
   height: 155px;
-  background: url("${process.env.PUBLIC_URL}/images/whiteblank.svg");
+  background: url("${BACKEND_URL}/images/whiteblank.svg");
   background-size: cover;
   filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.12));
 `;
@@ -144,10 +146,10 @@ const GroupHome = () => {
         <BluePoint>
           <img
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            src={`${process.env.PUBLIC_URL}/images/bluepoint.svg`}
+            src={`${BACKEND_URL}/images/bluepoint.svg`}
           />
           <Mark onClick={gotoHome}>
-            <img src={`${process.env.PUBLIC_URL}/images/heartmark.svg`} />
+            <img src={`${BACKEND_URL}/images/heartmark.svg`} />
           </Mark>
           <GroupTitle>화목한 우리 가족</GroupTitle>
         </BluePoint>
@@ -155,7 +157,7 @@ const GroupHome = () => {
       <BoxZone>
         <Box>
           <CircleImg>
-            <img src={`${process.env.PUBLIC_URL}/images/boardmark.svg`} />
+            <img src={`${BACKEND_URL}/images/boardmark.svg`} />
           </CircleImg>
           <BtnTitle onClick={gotoBoard}>게시판</BtnTitle>
           <BtnExplain>
@@ -166,7 +168,7 @@ const GroupHome = () => {
         </Box>
         <Box onClick={gotoAlbum}>
           <CircleImg>
-            <img src={`${process.env.PUBLIC_URL}/images/albumimg.svg`} />
+            <img src={`${BACKEND_URL}/images/albumimg.svg`} />
           </CircleImg>
           <BtnTitle>앨범</BtnTitle>
           <BtnExplain>
@@ -177,7 +179,7 @@ const GroupHome = () => {
         </Box>
         <Box onClick={gotoScreen}>
           <CircleImg>
-            <img src={`${process.env.PUBLIC_URL}/images/screenmark.svg`} />
+            <img src={`${BACKEND_URL}/images/screenmark.svg`} />
           </CircleImg>
           <BtnTitle>화상공유</BtnTitle>
           <BtnExplain>
@@ -188,7 +190,7 @@ const GroupHome = () => {
         </Box>
         <Box onClick={gotoPlan}>
           <CircleImg>
-            <img src={`${process.env.PUBLIC_URL}/images/planmark.svg`} />
+            <img src={`${BACKEND_URL}/images/planmark.svg`} />
           </CircleImg>
           <BtnTitle>일정</BtnTitle>
           <BtnExplain>

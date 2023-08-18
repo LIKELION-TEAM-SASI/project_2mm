@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -70,10 +72,10 @@ const Signup1_old = () => {
   return (
     <Container>
       <Back>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_code.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_code.svg`} />
       </SubTitle>
       <InputCode
         type="text"

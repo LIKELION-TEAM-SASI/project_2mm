@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -117,7 +119,7 @@ const Post2 = () => {
 
       // HTTP POST 요청으로 새로운 게시물 생성
       const response = await axios.post(
-        `http://127.0.0.1:8000/group/${code}/posts/`,
+        `${BACKEND_URL}/group/${code}/posts/`,
         formData,
         {
           headers: {
@@ -161,19 +163,13 @@ const Post2 = () => {
   return (
     <Container>
       <Back onClick={onClickBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/back_btn.svg`} alt="back" />
+        <img src={`${BACKEND_URL}/images/back_btn.svg`} alt="back" />
       </Back>
       <Title>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_title.svg`}
-          alt="title"
-        />
+        <img src={`${BACKEND_URL}/images/post2_title.svg`} alt="title" />
       </Title>
       <Subtitle1>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_subtitle.svg`}
-          alt="Subtitle1"
-        />
+        <img src={`${BACKEND_URL}/images/post2_subtitle.svg`} alt="Subtitle1" />
       </Subtitle1>
       <ImgUpload onClick={handleImageClick}>
         {/* 선택한 이미지가 있다면 해당 이미지를 보여줌 */}
@@ -186,7 +182,7 @@ const Post2 = () => {
         ) : (
           /* 선택한 이미지가 없다면 업로드 이미지 보여줌 */
           <img
-            src={`${process.env.PUBLIC_URL}/images/imgupload_post2.svg`}
+            src={`${BACKEND_URL}/images/imgupload_post2.svg`}
             alt="ImgUpload"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -200,7 +196,7 @@ const Post2 = () => {
       />
       <Subtitle2>
         <img
-          src={`${process.env.PUBLIC_URL}/images/post2_subtitle2.svg`}
+          src={`${BACKEND_URL}/images/post2_subtitle2.svg`}
           alt="Subtitle2"
         />
       </Subtitle2>
@@ -210,10 +206,7 @@ const Post2 = () => {
         onChange={onChange} // onChange 핸들러만 추가
       ></InputText>
       <NextBtn onClick={onSubmit}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/post2_btn.svg`}
-          alt="NextBtn"
-        />
+        <img src={`${BACKEND_URL}/images/post2_btn.svg`} alt="NextBtn" />
       </NextBtn>
     </Container>
   );

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -75,7 +77,7 @@ const Signup2_new = () => {
       }
 
       const response = await axios.patch(
-        `http://127.0.0.1:8000/group/${code}/`,
+        `${BACKEND_URL}/group/${code}/`,
         formData,
         {
           headers: {
@@ -102,7 +104,7 @@ const Signup2_new = () => {
     <Container>
       <Back>&nbsp;</Back>
       <SubTitle>
-        <img src={`${process.env.PUBLIC_URL}/images/subtitle_groupimage.svg`} />
+        <img src={`${BACKEND_URL}/images/subtitle_groupimage.svg`} />
       </SubTitle>
       <ImageUpload>
         {selectedImage ? (
@@ -112,7 +114,7 @@ const Signup2_new = () => {
           />
         ) : (
           <label htmlFor="imageUploadInput">
-            <img src={`${process.env.PUBLIC_URL}/images/image_upload.svg`} />
+            <img src={`${BACKEND_URL}/images/image_upload.svg`} />
           </label>
         )}
         <input
@@ -124,7 +126,7 @@ const Signup2_new = () => {
         ></input>
       </ImageUpload>
       <NextBtn onClick={onSubmit}>
-        <img src={`${process.env.PUBLIC_URL}/images/nextbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/nextbtn.svg`} />
       </NextBtn>
     </Container>
   );

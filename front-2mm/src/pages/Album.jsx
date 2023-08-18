@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 // 수정함!!
 
 const Container = styled.div`
@@ -15,8 +17,8 @@ const Container = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
   }
 `;
 
@@ -74,7 +76,7 @@ const AlbumItem = ({ postID, postImage }) => {
             borderRadius: "6px",
             objectFit: "cover",
           }}
-          src={`http://127.0.0.1:8000${postImage}`}
+          src={`${BACKEND_URL}${postImage}`}
         />
       </PicBox>
     </>
@@ -96,9 +98,7 @@ const Album = () => {
       setLoading(true);
       try {
         // API 호출
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/album/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${code}/album/`);
         setPostList(response.data); // API 응답으로 받은 데이터를 state에 저장
         // user_id 로그인하고 전달받기
       } catch (error) {
@@ -116,10 +116,10 @@ const Album = () => {
   return (
     <Container>
       <Back onClick={gotoBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} />
       </Back>
       <Title>
-        <img src={`${process.env.PUBLIC_URL}/images/albumtitle.svg`} />
+        <img src={`${BACKEND_URL}/images/albumtitle.svg`} />
       </Title>
       <PicZone>
         {postList.map((e) => (

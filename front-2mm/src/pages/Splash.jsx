@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 //import KakaoLogin from "react-kakao-login";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -102,16 +104,16 @@ const Splash = () => {
   return (
     <Container>
       <TextBox1>
-        <img src={`${process.env.PUBLIC_URL}/images/2mmexplain.svg`} />
+        <img src={`${BACKEND_URL}/images/2mmexplain.svg`} />
       </TextBox1>
       <TextBox2>
         {" "}
-        <img src={`${process.env.PUBLIC_URL}/images/2mm.svg`} />
+        <img src={`${BACKEND_URL}/images/2mm.svg`} />
       </TextBox2>
       <DesignImg>
         <img
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          src={`${process.env.PUBLIC_URL}/images/splashdesign.svg`}
+          src={`${BACKEND_URL}/images/splashdesign.svg`}
         />
       </DesignImg>
       <CenterZone>
@@ -126,10 +128,10 @@ const Splash = () => {
           <img src={`${process.env.PUBLIC_URL}/images/kakaobtn_s.svg`} />
         </KakaoBtn> */}
         <SignUpBtn onClick={gotoSignUp}>
-          <img src={`${process.env.PUBLIC_URL}/images/signupbtn_s.svg`} />
+          <img src={`${BACKEND_URL}/images/signupbtn_s.svg`} />
         </SignUpBtn>
         <LoginBtn onClick={gotoLogin}>
-          <img src={`${process.env.PUBLIC_URL}/images/loginbtn_s.svg`} />
+          <img src={`${BACKEND_URL}/images/loginbtn_s.svg`} />
         </LoginBtn>
       </CenterZone>
     </Container>

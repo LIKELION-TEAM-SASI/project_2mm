@@ -4,6 +4,8 @@ import ModalBasic from "./ModalBasic_date";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -153,7 +155,7 @@ const PlanItem = ({ planID }) => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/group/${code}/plans/${planID}`)
+      .get(`${BACKEND_URL}/group/${code}/plans/${planID}`)
       .then((response) => {
         setPost(response.data);
       });
@@ -166,7 +168,7 @@ const PlanItem = ({ planID }) => {
         <TitleLink>{post && post.title}</TitleLink>
         <Memo>{post && post.memo}</Memo>
         <More onClick={() => setModalOpen(true)}>
-          <img src={`${process.env.PUBLIC_URL}/images/more.svg`} alt="More" />
+          <img src={`${BACKEND_URL}/images/more.svg`} alt="More" />
         </More>
         {modalOpen && (
           <>
@@ -211,9 +213,7 @@ const Date_List = () => {
       setLoading(true);
       try {
         // API 호출
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/plans/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${code}/plans/`);
         setPostList(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -230,7 +230,7 @@ const Date_List = () => {
   return (
     <Container>
       <Back onClick={gotoBack}>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} alt="Back" />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} alt="Back" />
       </Back>
       <Year>2023년</Year>
       {/* {`${currentMonth}월`} */}
@@ -243,7 +243,7 @@ const Date_List = () => {
       </BoxZone>
       {/* 추가 페이지로 이동 버튼 */}
       <PlusBtn onClick={gotoNext}>
-        <img src={`${process.env.PUBLIC_URL}/images/plusbtn.svg`} />
+        <img src={`${BACKEND_URL}/images/plusbtn.svg`} />
       </PlusBtn>
     </Container>
   );

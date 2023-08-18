@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL =
+  "https://uuju.pythonanywhere.com" || "http://127.0.0.1:8000";
 
 const Container = styled.div`
   position: relative;
@@ -98,9 +100,7 @@ const Signup5_new = () => {
     const fetchData = async () => {
       try {
         // API 호출
-        const response = await axios.get(
-          `http://127.0.0.1:8000/group/${code}/`
-        );
+        const response = await axios.get(`${BACKEND_URL}/group/${code}/`);
         setGroup(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -117,24 +117,18 @@ const Signup5_new = () => {
   return (
     <Container>
       <Back>
-        <img src={`${process.env.PUBLIC_URL}/images/backbtn.svg`} alt="Back" />
+        <img src={`${BACKEND_URL}/images/backbtn.svg`} alt="Back" />
       </Back>
       <SubTitle>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/subtitle_group.svg`}
-          alt="SubTitle"
-        />
+        <img src={`${BACKEND_URL}/images/subtitle_group.svg`} alt="SubTitle" />
       </SubTitle>
       <Whitebox>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/whitebox.svg`}
-          alt="WhiteBox"
-        />
+        <img src={`${BACKEND_URL}/images/whitebox.svg`} alt="WhiteBox" />
         <ImageUpload>
           {group && group.profile ? (
             <img
               style={{ width: "320px", height: "242px", objectFit: "cover" }}
-              src={`http://127.0.0.1:8000${group.profile}`}
+              src={`${BACKEND_URL}${group.profile}`}
             />
           ) : null}
         </ImageUpload>
@@ -142,7 +136,7 @@ const Signup5_new = () => {
         {group ? <GroupInfo>{group.info}</GroupInfo> : null}
       </Whitebox>
       <NextBtn onClick={handleClick}>
-        <img src={`${process.env.PUBLIC_URL}/images/startbtn.svg`} alt="Next" />
+        <img src={`${BACKEND_URL}/images/startbtn.svg`} alt="Next" />
       </NextBtn>
     </Container>
   );
