@@ -19,17 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
 # 프론트 build 파일 경로 지정 >>>>
-STATIC_URL = '/static/'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = os.path.dirname(BASE_DIR)
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR2 = Path(__file__).resolve().parent.parent
+ROOT_DIR = os.path.dirname(BASE_DIR2)
 
 STATICFILES_DIRS = [
         # 실제 static 파일은 모두 client 측에서 소유
-        os.path.join(ROOT_DIR, 'client/static')
+        os.path.join(ROOT_DIR, 'client/build/static')
     ]
 # <<<< 프론트 build 파일 경로 지정
 
