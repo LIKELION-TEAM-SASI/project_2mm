@@ -1,2 +1,4 @@
 myvenv
 secrets.json
+
+db.sqlite3

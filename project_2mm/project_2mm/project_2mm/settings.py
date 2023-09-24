@@ -16,21 +16,32 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # 프론트 build 파일 경로 지정 >>>>
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR2 = Path(__file__).resolve().parent.parent
-ROOT_DIR = os.path.dirname(BASE_DIR2)
+# BASE_DIR2 = Path(__file__).resolve().parent
+# ROOT_DIR = os.path.dirname(BASE_DIR2)
 
+# STATICFILES_DIRS = [
+#         # 실제 static 파일은 모두 client 측에서 소유
+#         os.path.join(ROOT_DIR, 'client/build/static')
+
+#     ]
+# print('경로는' + ROOT_DIR + '/client/build/static')
+
+
+FRONTEND_DIR = BASE_DIR / "client"
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-        # 실제 static 파일은 모두 client 측에서 소유
-        os.path.join(ROOT_DIR, 'client/build/static')
-    ]
+    os.path.join(FRONTEND_DIR, 'build', 'static'),
+]
 # <<<< 프론트 build 파일 경로 지정
 
 # Quick-start development settings - unsuitable for production
