@@ -22,6 +22,14 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATIC_URL = '/static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+
+STATICFILES_DIRS = [
+        # 실제 static 파일은 모두 client 측에서 소유
+        os.path.join(ROOT_DIR, 'client/static')
+    ]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -156,7 +164,7 @@ ROOT_URLCONF = 'project_2mm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['client'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
