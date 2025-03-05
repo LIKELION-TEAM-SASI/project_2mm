@@ -11,26 +11,63 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+# 프론트 build 파일 경로 지정 >>>>
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR2 = Path(__file__).resolve().parent
+# ROOT_DIR = os.path.dirname(BASE_DIR2)
+
+# STATICFILES_DIRS = [
+#         # 실제 static 파일은 모두 client 측에서 소유
+#         os.path.join(ROOT_DIR, 'client/build/static')
+
+#     ]
+# print('경로는' + ROOT_DIR + '/client/build/static')
+
+
+FRONTEND_DIR = BASE_DIR / "client"
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(FRONTEND_DIR, 'build', 'static'),
+]
+# <<<< 프론트 build 파일 경로 지정
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o+a2(ghqm#x6b+x#+-84lz0r5h)12oiy3hao5rfbi)ifrrb7%c'
+
+# secret -key 가져오기 
+secret_file = os.path.join(BASE_DIR, 'secrets.json') # secrets.json 파일 위치
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'uuju.pythonanywhere.com'
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -98,7 +135,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware', #
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 #
@@ -141,7 +178,7 @@ ROOT_URLCONF = 'project_2mm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['client'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
